@@ -4478,6 +4478,7 @@ const countries = [
   }));
 
 const select = document.getElementById("country");
+const zipcode = document.getElementById("zipcode");
 
 function createOption(opt) {
   const option = document.createElement("option");
@@ -4486,15 +4487,109 @@ function createOption(opt) {
   select.appendChild(option);
 }
 
-select.addEventListener("change", (e) => setRegexp(e));
+select.addEventListener("change", (e) => {
+  setRegexp(e.target.value);
+  validateZipcode();
+});
 
-function setRegexp(e) {
-  const name = e.target.value;
+function setRegexp(name) {
   const regex = countries.find((country) => country.name === name).regex;
-  const zipcode = document.getElementById("zipcode");
   zipcode.setAttribute("pattern", regex);
 }
 
 document.body.onload = () => {
   countries.forEach((country) => createOption(country));
+  setRegexp("United Arab Emirates");
 };
+
+const email = document.getElementById("email");
+
+email.addEventListener("focusout", validateEmail);
+
+function validateEmail() {
+  if (email.validity.valueMissing) {
+    addError(email, "Email cannot be empty!");
+    return false;
+  }
+
+  if (email.validity.typeMismatch) {
+    addError(email, "Email must have @");
+    return false;
+  }
+
+  removeError(email);
+  return true;
+}
+
+zipcode.addEventListener("focusout", validateZipcode);
+
+function validateZipcode() {
+  if (zipcode.validity.patternMismatch || zipcode.validity.valueMissing) {
+    addError(zipcode, "Incorrect zipcode format");
+    return false;
+  }
+
+  removeError(zipcode);
+  return true;
+}
+
+const password = document.getElementById("password");
+password.addEventListener("focus", () =>
+  addError(
+    password,
+    "Minimum eight characters, at least one letter and one number"
+  )
+);
+
+password.addEventListener("input", validatePassword);
+
+function validatePassword() {
+  if (password.validity.patternMismatch || password.validity.valueMissing) {
+    addError(
+      password,
+      "Minimum eight characters, at least one letter and one number"
+    );
+    return false;
+  }
+
+  removeError(password);
+  return true;
+}
+
+const pwconfirm = document.getElementById("pwconfirm");
+pwconfirm.addEventListener("input", validatePwconfirm);
+
+function validatePwconfirm() {
+  if (pwconfirm.value != password.value) {
+    addError(pwconfirm, "Password does not match");
+    return false;
+  }
+
+  removeError(pwconfirm);
+  return true;
+}
+
+function addError(element, errorStr) {
+  element.classList.add("border-red-800");
+  element.nextElementSibling.classList.remove("hidden");
+  element.nextElementSibling.textContent = errorStr;
+}
+
+function removeError(element) {
+  element.classList.remove("border-red-800");
+  element.nextElementSibling.textContent = "";
+  element.nextElementSibling.classList.add("hidden");
+}
+
+document.getElementById("submit").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (
+    validateEmail() &&
+    validateZipcode() &&
+    validatePassword() &&
+    validatePwconfirm()
+  ) {
+    document.querySelector("form").submit();
+  }
+});

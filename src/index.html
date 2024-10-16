@@ -12,6 +12,7 @@
     <div class="mb-2">
       <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
       <input type="email" name="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required autofocus>
+      <div class="block text-red-700 text-sm font-bold mt-2 hidden"></div>
     </div>
     <div class="mb-2">
       <label for="country" class="block text-gray-700 text-sm font-bold mb-2">Country:</label>
@@ -20,17 +21,20 @@
     </div>
     <div class="mb-2">
       <label for="zipcode" class="block text-gray-700 text-sm font-bold mb-2">Zip Code:</label>
-      <input type="text" name="zipcode" id="zipcode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <input type="text" name="zipcode" id="zipcode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+      <div class="block text-red-700 text-sm font-bold mt-2 hidden"></div>
     </div>
     <div class="mb-2">
       <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-      <input type="password" name="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <input type="password" name="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
+      <div class="block text-red-700 text-sm font-bold mt-2 hidden"></div>
     </div>
     <div class="mb-2">
       <label for="pwconfirm" class="block text-gray-700 text-sm font-bold mb-2">Confirm password:</label>
       <input type="password" name="pwconfirm" id="pwconfirm" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      <div class="block text-red-700 text-sm font-bold mt-2 hidden"></div>
     </div>
-    <input type="submit" value="Create Account" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 my-2">
+    <input type="submit" value="Create Account" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 my-2" id="submit">
   </form>
 </body>
 </html>
